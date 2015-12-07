@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu64"
+  config.vm.box = "lazygray/phoenix-postgres"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -37,7 +37,7 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder ".", "/vagrant/dev/"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -65,19 +65,10 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-    cd /vagrant
-	wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
-	sudo apt-get update
-	sudo apt-get install elixir -y
-	yes | mix archive.install https://github.com/phoenixframework/phoenix/releases/download/v1.0.4/phoenix_new-1.0.4.ez
-	sudo apt-get install nodejs-legacy -y
-	sudo apt-get install npm -y
-	sudo apt-get install postgresql postgresql-contrib -y
-	npm install
-	echo "Y" | mix local.hex
-	echo "Y" | mix local.rebar
-	mix deps.update cowboy
-	sudo -u postgres psql -U postgres -d postgres -c "alter user postgres with password 'postgres';"
-	mix ecto.create
+	echo "Starting Provisioning Process"
+    cd /vagrant/dev
+	echo "Y" | mix local.hex > /dev/null || echo "Install Mix Failed! Return Code: $?"	#echo "Y" | mix local.rebar > /dev/null || echo "Install Rebar Failed! Return Code: $?"
+	#mix deps.get || echo "Mix Deps.Get Failed! Return Code: $?"
+	echo "Provisioning Complete"
   SHELL
 end
