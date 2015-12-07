@@ -9,7 +9,7 @@ use Mix.Config
 config :vapir, Vapir.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "QiHiHekbnp0X/kZq3N/VkoIiVu1YX1XPJ3c6zkvz5Qtya9iJOPqsCGkE/N9PRDou",
+  secret_key_base: "7u/i43Jy46LDFsS0bl9y6uUUPckFPDVy6IZ/7w4Umr1VzDrSDaCThTdY9DUw0BZ8",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Vapir.PubSub,
            adapter: Phoenix.PubSub.PG2]
@@ -22,8 +22,3 @@ config :logger, :console,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
-
-# Configure phoenix generators
-config :phoenix, :generators,
-  migration: true,
-  binary_id: false

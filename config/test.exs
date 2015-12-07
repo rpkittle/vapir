@@ -9,11 +9,13 @@ config :vapir, Vapir.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# Set a higher stacktrace during test
+config :phoenix, :stacktrace_depth, 20
+
 # Configure your database
 config :vapir, Vapir.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
   database: "vapir_test",
-  hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

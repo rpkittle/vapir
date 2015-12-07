@@ -38,5 +38,4 @@ config :vapir, Vapir.Repo,
   username: "postgres",
   password: "postgres",
   database: "vapir_dev",
-  hostname: "localhost",
   pool_size: 10

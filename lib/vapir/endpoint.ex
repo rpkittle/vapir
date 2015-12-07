@@ -33,7 +33,7 @@ defmodule Vapir.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_vapir_key",
-    signing_salt: "/pilxZwf"
+    signing_salt: "/xd6Ed/I"
 
   plug Vapir.Router
 end

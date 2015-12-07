@@ -19,9 +19,6 @@ defmodule Vapir.Web do
   def model do
     quote do
       use Ecto.Model
-
-      import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
     end
   end
 
@@ -31,7 +28,7 @@ defmodule Vapir.Web do
 
       alias Vapir.Repo
       import Ecto.Model
-      import Ecto.Query, only: [from: 1, from: 2]
+      import Ecto.Query, only: [from: 2]
 
       import Vapir.Router.Helpers
     end
@@ -63,7 +60,8 @@ defmodule Vapir.Web do
 
       alias Vapir.Repo
       import Ecto.Model
-      import Ecto.Query, only: [from: 1, from: 2]
+      import Ecto.Query, only: [from: 2]
+
     end
   end
 
