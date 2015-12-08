@@ -67,7 +67,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
 	echo "Starting Provisioning Process"
     cd /vagrant/dev
-	echo "Y" | mix local.hex > /dev/null || echo "Install Mix Failed! Return Code: $?"	#echo "Y" | mix local.rebar > /dev/null || echo "Install Rebar Failed! Return Code: $?"
+	#echo "Y" | mix local.hex > /dev/null || echo "Install Mix Failed! Return Code: $?"	#echo "Y" | mix local.rebar > /dev/null || echo "Install Rebar Failed! Return Code: $?"
 	#mix deps.get || echo "Mix Deps.Get Failed! Return Code: $?"
 	echo "Provisioning Complete"
   SHELL
