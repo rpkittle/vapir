@@ -9,7 +9,7 @@ use Mix.Config
 config :vapir, Vapir.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "7u/i43Jy46LDFsS0bl9y6uUUPckFPDVy6IZ/7w4Umr1VzDrSDaCThTdY9DUw0BZ8",
+  secret_key_base: "u7pL+ohsYbfmghiOCYmQYxlncaCxO1OBKCGi8hI8cW6ZE7PaDni7MQ8StCTFk4Wr",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Vapir.PubSub,
            adapter: Phoenix.PubSub.PG2]
