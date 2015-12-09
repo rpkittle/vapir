@@ -23,3 +23,10 @@ cd /vagrant/dev/
 mix deps.get
 mix phoenix.server
 ```
+
+## How To Use
+
+URL Syntax:
+```
+http://127.0.0.1:4000/api/?url=https://api.exampleurl.com/api/v1/&username=apiuser&password=apipassword
+```
