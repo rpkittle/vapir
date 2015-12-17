@@ -12,7 +12,8 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "lazygray/phoenix-postgres"
+  #config.vm.box = "lazygray/phoenix-postgres"
+  config.vm.box = "ubuntu/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -64,11 +65,17 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-	echo "Starting Provisioning Process"
-    cd /vagrant/dev
+#  config.vm.provision "shell", inline: <<-SHELL
+#	echo "Starting Provisioning Process"
+#    cd /vagrant/dev
 	#echo "Y" | mix local.hex > /dev/null || echo "Install Mix Failed! Return Code: $?"	#echo "Y" | mix local.rebar > /dev/null || echo "Install Rebar Failed! Return Code: $?"
 	#mix deps.get || echo "Mix Deps.Get Failed! Return Code: $?"
-	echo "Provisioning Complete"
-  SHELL
+#	echo "Provisioning Complete"
+  #SHELL
+  config.vm.provision :shell, path: 'config/vagrant/build_dependency_setup.sh'
+  config.vm.provision :shell, path: 'config/vagrant/git_setup.sh'
+  config.vm.provision :shell, path: 'config/vagrant/nodejs_setup.sh'
+  config.vm.provision :shell, path: 'config/vagrant/postgresql_setup.sh'
+  config.vm.provision :shell, path: 'config/vagrant/elixir_setup.sh'
+  config.vm.provision :shell, path: 'config/vagrant/phoenix_setup.sh', privileged: false
 end
