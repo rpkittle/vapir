@@ -39,6 +39,8 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   config.vm.synced_folder ".", "/vagrant/dev/"
+  #config.vm.synced_folder ".", "/vagrant/dev/", type: "rsync",
+  #  rsync__exclude: ".git/"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -65,17 +67,17 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-#  config.vm.provision "shell", inline: <<-SHELL
-#	echo "Starting Provisioning Process"
-#    cd /vagrant/dev
-	#echo "Y" | mix local.hex > /dev/null || echo "Install Mix Failed! Return Code: $?"	#echo "Y" | mix local.rebar > /dev/null || echo "Install Rebar Failed! Return Code: $?"
-	#mix deps.get || echo "Mix Deps.Get Failed! Return Code: $?"
-#	echo "Provisioning Complete"
-  #SHELL
   config.vm.provision :shell, path: 'config/vagrant/build_dependency_setup.sh'
   config.vm.provision :shell, path: 'config/vagrant/git_setup.sh'
   config.vm.provision :shell, path: 'config/vagrant/nodejs_setup.sh'
   config.vm.provision :shell, path: 'config/vagrant/postgresql_setup.sh'
   config.vm.provision :shell, path: 'config/vagrant/elixir_setup.sh'
   config.vm.provision :shell, path: 'config/vagrant/phoenix_setup.sh', privileged: false
+  config.vm.provision "shell", inline: <<-SHELL
+	echo "Starting moving project"
+    cd /vagrant
+	mkdir /vagrant/vapir && cp -R /vagrant/dev /vagrant/vapir && chown -R vagrant /vagrant/vapir && chgrp -R vagrant /vagrant/vapir
+	mix deps.get || echo "Mix Deps.Get Failed! Return Code: $?"
+	echo "Provisioning Complete"
+  SHELL
 end
