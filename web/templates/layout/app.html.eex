@@ -7,24 +7,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Phoenix!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/vapir.css") %>">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="<%= static_path(@conn, "/js/vapir.js") %>"></script>
   </head>
-
   <body>
-    <div class="container" role="main">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-        </ul>
-        <span class="logo"></span>
-      </div>
-
-
-
-      <%= @inner %>
-
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+	<div id="header">
+		<a href="<%= page_path @conn, :index %>"><img src="http://i.imgur.com/M1scBWR.png"></a> Vapir
+		<input placeholder="Username" id="api_username" name="api_username" type="text">
+		<input placeholder="Password" id="api_password" name="api_password" type="text">
+	</div>
+	<div id="messages">
+	</div>
+    <%= @inner %>
+    <div id="footer">
+		This is the footer
+	</div>
   </body>
 </html>
