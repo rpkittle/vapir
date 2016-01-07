@@ -19,7 +19,7 @@ vagrant up
 
 Run the following commands in the vagrant VM
 ```
-cd /vagrant/dev/
+cd /vagrant/vapir/
 mix deps.get
 mix phoenix.server
 ```
