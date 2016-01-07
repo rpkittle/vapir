@@ -15,6 +15,7 @@
   <body>
 	<div id="header">
 		<a href="<%= page_path @conn, :index %>"><img src="http://i.imgur.com/M1scBWR.png"></a> Vapir
+		<input placeholder="http://127.0.0.1:4000/js/apidoc.json" id="api_doc" name="api_doc" type="text">
 		<input placeholder="Username" id="api_username" name="api_username" type="text">
 		<input placeholder="Password" id="api_password" name="api_password" type="text">
 	</div>

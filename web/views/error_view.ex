@@ -2,7 +2,7 @@ defmodule Vapir.ErrorView do
   use Vapir.Web, :view
 
   def render("404.html", _assigns) do
-    "Page not found"
+	render("404.html", %{})
   end
 
   def render("500.html", _assigns) do
