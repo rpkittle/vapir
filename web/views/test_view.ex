@@ -10,38 +10,32 @@ defmodule Vapir.TestView do
   end
   
   defp generateVapirHTML(json) do
-	#html = "<h4>Base URL:</h4><span id=\"base_url\">"<>json["baseURL"]<>"</span>"
-	html = "<pre>Header Info</pre>"
+	html = "<h4>Base URL:</h4><span id=\"base_url\">"<>json["baseURL"]<>"</span>"
+	#html = "<pre>Header Info</pre>"
 	Map.keys(json["apis"])
 		|> generateEndpoints(json,html)
   end
   
-  defp generateEndpoints(list,json,html) do
-	for x <- list do
-		html = html<>"<br>"<>x<>"<br>"
-		paths_list = Map.keys(json["apis"][x]["paths"])
-		for y <- paths_list do
-			generatePaths(y,html)
-		end
-	end
+  defp generateEndpoints([next|remainder],json,html) do
+	html = html<>"<br><b>"<>next<>"</b>"
+	paths_list = Map.keys(json["apis"][next]["paths"])
+	generatePaths(paths_list, json, html, remainder)
   end
   
-  defp generatePaths(path,html) do
-	#[head|tail] = list
-	#IO.puts path
-	html = html<>"<br>"<>path<>"<br>"
+  defp generateEndpoints([],_json,html) do
 	showHTML(html)
+  end
+  
+  defp generatePaths([next|remainder],json,html, endpoints) do
+	html = html<>"<pre>"<>next<>"</pre>"
+	generatePaths(remainder, json, html, endpoints)
+  end
+  
+  defp generatePaths([],json,html,endpoints) do
+	generateEndpoints(endpoints,json,html)
   end
   
   defp showHTML(html) do
 	raw html
-  end
-
-  defp generateEndpoints([]) do
-	IO.puts "Done with Endpoints"
-  end
-  
-  defp generatePaths([]) do
-	IO.puts "Done with Paths"
   end
 end
