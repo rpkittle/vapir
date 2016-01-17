@@ -1,10 +1,6 @@
 defmodule Vapir.PageView do
   use Vapir.Web, :view
   
-  def message do
-    "Hello from the view!"
-  end
-  
   def apidoc do
 	url = "http://127.0.0.1:4000/js/apidoc.json"
 	{:ok, {_,_,body}} = :httpc.request('#{url}')
@@ -58,17 +54,22 @@ defmodule Vapir.PageView do
   defp generateMethods([next|rem_methods],json,html,rem_endpoints,paths_map,rem_paths,curr_path) do
 	param_map = paths_map[curr_path][next]["parameters"]
 	html = html<>"""
-	<li class="#{next}">
+			<li class="#{next}">
               <div class="endpoint_header">
                 <span class="method">#{next}</span>
-                <span class="url">#{curr_path} - #{paths_map[curr_path][next]["summary"]}</span>
+                <span class="url" value="#{curr_path}">#{curr_path} - #{paths_map[curr_path][next]["summary"]}</span>
               </div>
               <div class="endpoint_content" style="display: none;">
                 <h4>Descriptions</h4>
                 <span class="markdown">#{paths_map[curr_path][next]["description"]}</span>
                 <h4>Parameters</h4>
-				#{generateParams(Map.keys(param_map), param_map, "")}
-                <span class="markdown">show available parameters with input fields</span>
+				<span class="markdown">show available parameters with input fields</span>
+				<pre class="params"><table>
+						<tr>
+							<th>Name</th><th>Input</th><th>Description</th><th>Format</th><th>Required</th>
+						</tr>
+						#{generateParams(Map.keys(param_map), param_map, "")}
+					</table></pre>
                 <br>
                 <button class="TryItNow">Try it now!</button><span class="reset_res" style="display:none">Reset</span>
 				<div class="response" style="display:none">
@@ -88,7 +89,9 @@ defmodule Vapir.PageView do
   end
   
   defp generateParams([next|remainder], param_map, param_html) do
-	param_html = param_html<>"<pre>"<>next<>"</pre>"
+	param_html = param_html<>"""
+	<tr><td>#{next}:</td><td><input placeholder="#{"example"}" id="#{next}_value" name="#{next}_value" type="text"></td><td>#{param_map[next]["description"]}</td><td>#{param_map[next]["format"]}</td><td>#{param_map[next]["required"]}</td></tr>
+	"""
 	generateParams(remainder, param_map, param_html)
   end
   

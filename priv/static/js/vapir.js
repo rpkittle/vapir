@@ -32,7 +32,21 @@ $(function() {
 	});
 	
 	$(".TryItNow").click( function() {
-		var url = "http://www.omdbapi.com/?t=Avatar";
+		//var url = "http://www.omdbapi.com/?t=Avatar";
+		var base_url = $('#base_url').text();
+		var endpoint_url = $(this).parent().siblings(".endpoint_header").children(".url").attr("value");
+		var url = base_url+endpoint_url;
+		
+		var inputs = $(this).siblings(".params").find("input");
+		$.each($(inputs).serializeArray(), function(i, field) {
+			//params[field.name] = field.value;
+			var name = field.name.slice(0, -6);
+			var value = field.value;
+			url = url.replace("{"+name+"}",value);
+			//alert(url)
+		});
+		//alert(url);
+		
 		var username = $('#api_username').val();
 		var password = $('#api_password').val();
 		var method = "GET";
